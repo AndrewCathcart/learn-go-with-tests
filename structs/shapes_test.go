@@ -3,45 +3,35 @@ package structs
 import "testing"
 
 func TestPerimeter(t *testing.T) {
-	checkPerimeter := func(t *testing.T, shape Shape, expected float64) {
-		t.Helper()
-		actual := shape.Perimeter()
-		if actual != expected {
-			t.Errorf("got %g want %g", actual, expected)
-		}
+	perimeterTests := []struct {
+		shape    Shape
+		expected float64
+	}{
+		{Rectangle{10, 10}, 40.0},
+		{Circle{10}, 62.83185307179586},
 	}
 
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{10.0, 10.0}
-		expected := 40.0
-		checkPerimeter(t, rectangle, expected)
-	})
-
-	t.Run("circle", func(t *testing.T) {
-		circle := Circle{10}
-		expected := 62.83185307179586
-		checkPerimeter(t, circle, expected)
-	})
+	for _, tt := range perimeterTests {
+		actual := tt.shape.Perimeter()
+		if actual != tt.expected {
+			t.Errorf("got %g expected %g", actual, tt.expected)
+		}
+	}
 }
 
 func TestArea(t *testing.T) {
-	checkArea := func(t *testing.T, shape Shape, expected float64) {
-		t.Helper()
-		actual := shape.Area()
-		if actual != expected {
-			t.Errorf("got %g want %g", actual, expected)
-		}
+	areaTests := []struct {
+		shape    Shape
+		expected float64
+	}{
+		{Rectangle{12, 6}, 72.0},
+		{Circle{10}, 314.1592653589793},
 	}
 
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{12, 6}
-		expected := 72.0
-		checkArea(t, rectangle, expected)
-	})
-
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10}
-		expected := 314.1592653589793
-		checkArea(t, circle, expected)
-	})
+	for _, tt := range areaTests {
+		actual := tt.shape.Area()
+		if actual != tt.expected {
+			t.Errorf("got %g expected %g", actual, tt.expected)
+		}
+	}
 }
