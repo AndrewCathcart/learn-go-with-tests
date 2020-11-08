@@ -1,2 +1,3 @@
 # learn-go-with-tests
- Learning Go with a testing/refactoring focus
+
+Following along with https://quii.gitbook.io/learn-go-with-tests in order to learn Go using TDD.
