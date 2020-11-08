@@ -1,10 +1,10 @@
-package main
+package hello
 
 import "testing"
 
 func TestHello(t *testing.T) {
 
-	assertCorrectMessage := func(t *testing.T, actual string, expected string) {
+	assertCorrectMessage := func(t *testing.T, actual, expected string) {
 		t.Helper() // helps indicate line numbers in failing tests
 		if actual != expected {
 			t.Errorf("got %q expected %q", actual, expected)

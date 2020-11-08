@@ -1,4 +1,4 @@
-package main
+package hello
 
 import "fmt"
 
@@ -7,7 +7,7 @@ const swedishHelloPrefix = "Hej, "
 const frenchHelloPrefix = "Bonjour, "
 
 // Hello returns "Hello, world!"
-func Hello(name string, language string) string {
+func Hello(name, language string) string {
 	if name == "" {
 		name = "World"
 	}
