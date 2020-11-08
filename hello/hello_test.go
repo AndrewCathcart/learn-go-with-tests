@@ -3,14 +3,6 @@ package hello
 import "testing"
 
 func TestHello(t *testing.T) {
-
-	assertCorrectMessage := func(t *testing.T, actual, expected string) {
-		t.Helper() // helps indicate line numbers in failing tests
-		if actual != expected {
-			t.Errorf("got %q expected %q", actual, expected)
-		}
-	}
-
 	t.Run("saying hello with a name", func(t *testing.T) {
 		actual := Hello("Andy", "")
 		expected := "Hello, Andy!"
@@ -34,4 +26,11 @@ func TestHello(t *testing.T) {
 		expected := "Bonjour, Andy!"
 		assertCorrectMessage(t, actual, expected)
 	})
+}
+
+func assertCorrectMessage(t *testing.T, actual, expected string) {
+	t.Helper() // helps indicate line numbers in failing tests
+	if actual != expected {
+		t.Errorf("got %q expected %q", actual, expected)
+	}
 }
