@@ -2,9 +2,11 @@ package main
 
 import "fmt"
 
+const helloPrefix = "Hello, "
+
 // Hello returns "Hello, world!"
 func Hello(name string) string {
-	return fmt.Sprintf("Hello, %s!", name)
+	return helloPrefix + name + "!"
 }
 
 func main() {
