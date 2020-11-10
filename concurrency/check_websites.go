@@ -13,6 +13,7 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 	results := make(map[string]bool)
 	resultChannel := make(chan result)
 
+	// concurrent way to do it with anon func, go routine and channel
 	for _, url := range urls {
 		go func(u string) {
 			resultChannel <- result{u, wc(u)}
@@ -23,6 +24,11 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 		result := <-resultChannel
 		results[result.string] = result.bool
 	}
+
+	// Bad, synchronous way to do it
+	// for _, url := range urls {
+	// 	results[url] = wc(url)
+	// }
 
 	return results
 }
