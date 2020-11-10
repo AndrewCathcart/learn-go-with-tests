@@ -2,23 +2,27 @@ package main
 
 import (
 	"net/http"
-	"time"
 )
 
 // Racer takes two urls, and compares the Get time of each, returning the fastest
-func Racer(a, b string) (winner string) {
-	aDuration := measureResponseTime(a)
-	bDuration := measureResponseTime(b)
-
-	if aDuration < bDuration {
-		return a
+func Racer(a, b string) (winner string, error error) {
+	// select lets you wait on multiple channels, the first channel to send a value has it's case statement executed
+	select {
+	case <-ping(a):
+		return a, nil
+	case <-ping(b):
+		return b, nil
 	}
-
-	return b
 }
+func ping(url string) chan struct{} {
+	// chan struct{} is the smallest data type available from a memory perspective, so we get no allocation versus e.g. a boolean
+	ch := make(chan struct{})
 
-func measureResponseTime(url string) time.Duration {
-	start := time.Now()
-	http.Get(url)
-	return time.Since(start)
+	// close the channel as soon as we get a result
+	go func() {
+		http.Get(url)
+		close(ch)
+	}()
+
+	return ch
 }
