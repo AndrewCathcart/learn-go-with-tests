@@ -2,6 +2,8 @@ package main
 
 import "strings"
 
+// More to do - convert from roman numeral to int
+
 // RomanNumeral is a struct representing the value (as an int) and symbol of a roman numeral
 type RomanNumeral struct {
 	Value  int
