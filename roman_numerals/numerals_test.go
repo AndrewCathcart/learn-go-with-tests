@@ -1,4 +1,4 @@
-package main
+package roman_numerals
 
 import "testing"
 

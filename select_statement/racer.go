@@ -1,4 +1,4 @@
-package main
+package select_statement
 
 import (
 	"fmt"
