@@ -6,7 +6,7 @@ import "sync"
 
 // Counter holds a value and a mutex
 type Counter struct {
-	mu    sync.Mutex
+	mu    sync.Mutex // We don't want to expose this to the public API
 	value int
 }
 
@@ -26,3 +26,10 @@ func (c *Counter) Inc() {
 func (c *Counter) Value() int {
 	return c.value
 }
+
+// Locks over channels and goroutines
+// https://github.com/golang/go/wiki/MutexOrChannel
+// Use channels when passing ownership of data
+// Use mutexes for managing state
+
+// Remember to use go vet in build scripts as it can alert to subtle bugs in our code
