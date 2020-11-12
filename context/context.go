@@ -25,3 +25,13 @@ func Server(store Store) http.HandlerFunc {
 		fmt.Fprint(w, data)
 	}
 }
+
+// Covered how to test a HTTP handler that has had the requets cancelled by the client
+// How to use context to manage cancellation
+// How to write a function that accepts context and uses it to cancel itself by using goroutines, select and channels
+// Follow Google's guidelines as to how to manage cancellation by propagating requets scoped context through the call-stack
+// How to create our own spy for http.ResponseWriter if we ever need it
+
+// Don't use context.Value - it's an untpyed map, no type-safety and you have to handle it not actually containing our value
+// https://faiface.github.io/post/context-should-go-away-go2/
+// https://blog.golang.org/context
