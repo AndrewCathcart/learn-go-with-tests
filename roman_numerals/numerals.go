@@ -1,4 +1,4 @@
-package roman_numerals
+package numerals
 
 import "strings"
 
