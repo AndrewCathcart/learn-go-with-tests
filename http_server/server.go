@@ -14,25 +14,23 @@ type PlayerStore interface {
 
 // PlayerServer is an HTTP interface for player info.
 type PlayerServer struct {
-	store  PlayerStore
-	router *http.ServeMux
+	store        PlayerStore
+	http.Handler // embedding: https://golang.org/doc/effective_go.html#embedding
 }
 
 // NewPlayerServer returns a new PlayerServer
 func NewPlayerServer(store PlayerStore) *PlayerServer {
+	router := http.NewServeMux()
+
 	p := &PlayerServer{
 		store,
-		http.NewServeMux(),
+		router,
 	}
 
-	p.router.Handle("/league", http.HandlerFunc(p.leagueHandler))
-	p.router.Handle("/players/", http.HandlerFunc(p.playersHandler))
+	router.Handle("/league", http.HandlerFunc(p.leagueHandler))
+	router.Handle("/players/", http.HandlerFunc(p.playersHandler))
 
 	return p
-}
-
-func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	p.router.ServeHTTP(w, r)
 }
 
 func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
