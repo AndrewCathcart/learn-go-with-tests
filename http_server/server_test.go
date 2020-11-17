@@ -95,38 +95,7 @@ func TestStoreWins(t *testing.T) {
 	})
 }
 
-func TestRecordingWinsAndRetrievingThem(t *testing.T) {
-	server := NewPlayerServer(NewInMemoryPlayerStore())
-	player := "Andy"
-
-	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
-	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
-
-	response := httptest.NewRecorder()
-	server.ServeHTTP(response, newGetScoreRequest(player))
-
-	assertStatus(t, response.Code, http.StatusOK)
-	assertResponseBody(t, response.Body.String(), "2")
-}
-
 func TestLeagueTable(t *testing.T) {
-	t.Run("it returns a 200 for GET /league", func(t *testing.T) {
-		store := StubPlayerStore{}
-		server := NewPlayerServer(&store)
-
-		request, _ := http.NewRequest(http.MethodGet, "/league", nil)
-		response := httptest.NewRecorder()
-		server.ServeHTTP(response, request)
-
-		var received []Player
-		err := json.NewDecoder(response.Body).Decode(&received)
-
-		if err != nil {
-			t.Fatalf("Unable to parse response from server %q into slice of Player, '%v'", response.Body, err)
-		}
-		assertStatus(t, response.Code, http.StatusOK)
-	})
-
 	t.Run("it returns the league table as JSON", func(t *testing.T) {
 		expectedLeague := []Player{
 			{"Andy", 1},
