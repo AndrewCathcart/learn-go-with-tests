@@ -7,17 +7,17 @@ import (
 	"strings"
 )
 
-// Player has a name and the number of wins
-type Player struct {
-	Name string
-	Wins int
-}
-
-// PlayerStore stores information about players.
+// PlayerStore stores score information about players.
 type PlayerStore interface {
 	GetPlayerScore(name string) int
 	RecordWin(name string)
 	GetLeague() []Player
+}
+
+// Player has a name and number of wins.
+type Player struct {
+	Name string
+	Wins int
 }
 
 // PlayerServer is an HTTP interface for player info.
@@ -26,7 +26,7 @@ type PlayerServer struct {
 	http.Handler // embedding: https://golang.org/doc/effective_go.html#embedding
 }
 
-// NewPlayerServer returns a new PlayerServer
+// NewPlayerServer returns a new PlayerServer with configured routing
 func NewPlayerServer(store PlayerStore) *PlayerServer {
 	router := http.NewServeMux()
 
